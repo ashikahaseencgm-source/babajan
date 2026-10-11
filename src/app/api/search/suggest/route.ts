@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { searchSuggestions } from "@/server/catalog";
 import { limitByIp } from "@/server/rate-limit";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   const q = new URL(req.url).searchParams.get("q")?.trim().slice(0, 100) ?? "";
   if (q.length < 2) return NextResponse.json({ items: [] });

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { handleProviderWebhook } from "@/server/orders/service";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Payment provider webhooks: /api/webhooks/razorpay (and /api/webhooks/test
  * outside production). The raw body is read as text so the HMAC signature is
