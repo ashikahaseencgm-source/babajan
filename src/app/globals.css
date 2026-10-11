@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/*
+ * Babajan Sumangali design tokens.
+ * Source of truth: assets/Babajan_Sumangali_Brand_Guidelines.md (§5–7, §12).
+ *
+ * Accessibility adjustments (documented in docs/ARCHITECTURE.md):
+ *  - --bs-slate-text (#5B6A7F) is a deeper Muted Slate for small text on ivory;
+ *    #66758A measures 4.34:1 on ivory, below WCAG AA for body text.
+ *  - Focus rings use Classic Blue (6.5:1 on ivory) rather than Ocean Blue
+ *    (2.7:1 on Soft Blue). On navy surfaces focus rings switch to Gold (6.2:1).
+ *  - Gold is never used for text on light surfaces (2.1:1); on navy it passes.
+ */
+:root {
+  --bs-royal-navy: #0f2d4f;
+  --bs-navy-deep: #0a213b;
+  --bs-classic-blue: #1e5a9b;
+  --bs-ocean-blue: #468fd3;
+  --bs-soft-blue: #d9e6f7;
+  --bs-gold: #c9a96a;
+  --bs-ivory: #f8f6f1;
+  --bs-white: #ffffff;
+  --bs-charcoal: #1f1f1f;
+  --bs-muted-slate: #66758a;
+  --bs-slate-text: #5b6a7f;
+  --bs-border: #dce3ec;
+  --bs-error: #a12c2c;
+  --bs-success: #2e6b3f;
+  --bs-warning-bg: #fbf3e2;
+}
+
+@theme {
+  --color-navy: var(--bs-royal-navy);
+  --color-navy-deep: var(--bs-navy-deep);
+  --color-blue: var(--bs-classic-blue);
+  --color-ocean: var(--bs-ocean-blue);
+  --color-soft: var(--bs-soft-blue);
+  --color-gold: var(--bs-gold);
+  --color-ivory: var(--bs-ivory);
+  --color-white: var(--bs-white);
+  --color-charcoal: var(--bs-charcoal);
+  --color-slate: var(--bs-slate-text);
+  --color-slate-muted: var(--bs-muted-slate);
+  --color-mist: var(--bs-border);
+  --color-error: var(--bs-error);
+  --color-success: var(--bs-success);
+  --color-warn: var(--bs-warning-bg);
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-montserrat), "Montserrat", Arial, sans-serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --shadow-soft: 0 1px 2px rgb(15 45 79 / 0.04), 0 8px 24px -12px rgb(15 45 79 / 0.12);
+  --shadow-lift: 0 12px 40px -16px rgb(15 45 79 / 0.25);
+
+  --ease-quiet: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --duration-quick: 150ms;
+  --duration-base: 240ms;
+
+  --breakpoint-xs: 25rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--bs-ivory);
+    color: var(--bs-charcoal);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (min-width: 1024px) {
+    body {
+      font-size: 1rem;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--bs-royal-navy);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  ::selection {
+    background: var(--bs-soft-blue);
+    color: var(--bs-royal-navy);
+  }
+  :focus-visible {
+    outline: 2px solid var(--bs-classic-blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--bs-gold);
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Editorial type roles (brand guide §6.3) */
+  .t-hero {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.5rem, 1.6rem + 4vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+  .t-page {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.125rem, 1.7rem + 2vw, 3.5rem);
+    line-height: 1.08;
+  }
+  .t-section {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.5rem + 1vw, 2.375rem);
+    line-height: 1.15;
+  }
+  .t-card {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.25rem + 0.5vw, 1.75rem);
+    line-height: 1.2;
+  }
+  .t-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bs-classic-blue);
+  }
+  .t-meta {
+    font-size: 0.8125rem;
+    color: var(--bs-slate-text);
+  }
+
+  /* Fine "thread" rule with a small diamond, echoing the logo's SUMANGALI rule. */
+  .thread {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--bs-gold);
+  }
+  .thread::before,
+  .thread::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: currentColor;
+    opacity: 0.85;
+  }
+  .thread > span {
+    width: 7px;
+    height: 7px;
+    transform: rotate(45deg);
+    border: 1px solid currentColor;
+  }
+
+  /* Arch frame — the brand's simplified arch silhouette (guide §7.4). */
+  .arch {
+    border-radius: 999px 999px var(--radius-xs) var(--radius-xs);
+    overflow: hidden;
+  }
+
+  .container-bs {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-bs {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-bs {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .link {
+    color: var(--bs-classic-blue);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--duration-quick) var(--ease-quiet);
+  }
+  .link:hover {
+    color: var(--bs-royal-navy);
+  }
+
+  .prose-bs {
+    max-width: 68ch;
+    line-height: 1.75;
+  }
+  .prose-bs h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-bs h3 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-bs p,
+  .prose-bs ul {
+    margin-bottom: 1rem;
+  }
+  .prose-bs ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .prose-bs a {
+    color: var(--bs-classic-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
